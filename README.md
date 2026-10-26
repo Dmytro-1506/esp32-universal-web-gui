@@ -1,67 +1,75 @@
-# ESP32 Universal Web-GUI
+# React + TypeScript + Vite
 
-A configurable React and TypeScript web interface for monitoring and controlling ESP32 hardware through a standardized HTTP/JSON API.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Overview
+Currently, two official plugins are available:
 
-The application provides a responsive dashboard for controlling and monitoring supported ESP32 components.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Features
+## React Compiler
 
-- Device connection and system status
-- LED control
-- Display and sound control
-- Button state monitoring
-- Automatic status updates
-- Activity log and error reporting
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Features depend on the capabilities implemented by the connected ESP32 firmware.
+## Expanding the ESLint configuration
 
-## Technology Stack
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- React
-- TypeScript
-- Vite
-- HTTP and JSON
-- ESP32 HTTP server and LittleFS
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-## Prerequisites
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-- Node.js (LTS)
-- npm
-- Git
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
-## Getting Started
-
-```bash
-git clone https://github.com/DEIN-USERNAME/esp32-universal-web-gui.git
-cd esp32-universal-web-gui
-npm install
-npm run dev
 ```
 
-## Available Scripts
+You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the development server |
-| `npm run build` | Create the production build |
-| `npm run lint` | Check code quality |
-| `npm run format:check` | Check code formatting |
-| `npm run preview` | Preview the production build |
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## Architecture
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
-See [docs/architecture.md](docs/architecture.md) and [docs/api-contract.md](docs/api-contract.md).
-
-## ESP32 Integration
-
-The production frontend is built with Vite and served as static files by the ESP32 through LittleFS. During development, the frontend communicates with the device through the configured HTTP API.
-
-## Project Management
-
-GitHub Issues track requirements and implementation tasks. GitHub Projects is used to organize work and track progress.
-
-## License
-
-License to be determined.
+```
