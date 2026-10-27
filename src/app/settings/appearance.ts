@@ -17,6 +17,6 @@ export interface AppearanceSettings {
 }
 
 export const DEFAULT_APPEARANCE: Readonly<AppearanceSettings> = {
-  theme: "light",
-  layout: "modern",
+  theme: "dark",
+  layout: "classic",
 };

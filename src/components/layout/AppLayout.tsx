@@ -1,39 +1,35 @@
-import { useState, type ReactNode } from 'react'
-import type { AppearanceSettings } from '../../app/settings/appearance'
-import { Header } from './Header'
-import { Sidebar, type NavigationItemId } from './Sidebar'
-import './AppLayout.css'
+import { useState, type ReactNode } from "react";
+import type { AppearanceSettings } from "../../app/settings/appearance";
+import { Header } from "./Header";
+import { Sidebar, type NavigationItemId } from "./Sidebar";
+import "./AppLayout.css";
+
+import { DashboardPage } from "../../features/dashboard/DashboardPage";
+import { LEDPanel } from "../../features/led/LEDPanel";
 
 interface AppLayoutProps {
-  appearance: AppearanceSettings
-  onAppearanceChange: (next: AppearanceSettings) => void
-  children: ReactNode
+  appearance: AppearanceSettings;
+  onAppearanceChange: (next: AppearanceSettings) => void;
+  children: ReactNode;
 }
 
 const sectionTitles: Record<NavigationItemId, string> = {
-  overview: 'Overview',
-  display: 'Display',
-  led: 'LED control',
-  sound: 'Sound',
-  buttons: 'Buttons',
-  battery: 'Battery',
-  settings: 'Settings',
-  'activity-log': 'Activity log',
-}
+  overview: "Overview",
+  display: "Display",
+  led: "LED control",
+  sound: "Sound",
+  buttons: "Buttons",
+  battery: "Battery",
+  settings: "Settings",
+  "activity-log": "Activity log",
+};
 
-export function AppLayout({
-  appearance,
-  onAppearanceChange,
-  children,
-}: AppLayoutProps) {
-  const [activeItem, setActiveItem] = useState<NavigationItemId>('overview')
+export function AppLayout({ appearance, onAppearanceChange }: AppLayoutProps) {
+  const [activeItem, setActiveItem] = useState<NavigationItemId>("overview");
 
   return (
     <div className="app-shell">
-      <Header
-        appearance={appearance}
-        onAppearanceChange={onAppearanceChange}
-      />
+      <Header appearance={appearance} onAppearanceChange={onAppearanceChange} />
 
       <div className="app-shell__body">
         <Sidebar activeItem={activeItem} onNavigate={setActiveItem} />
@@ -46,19 +42,18 @@ export function AppLayout({
             </div>
             <span className="app-main__device-label">Device not connected</span>
           </div>
+          {activeItem === "overview" && <DashboardPage />}
 
-          {activeItem === 'overview' ? (
-            children
-          ) : (
+          {activeItem === "led" && <LEDPanel />}
+
+          {activeItem !== "overview" && activeItem !== "led" && (
             <section className="app-placeholder" aria-live="polite">
-              <h2>{sectionTitles[activeItem]}</h2>
-              <p>
-                This section is planned but has not been implemented yet.
-              </p>
+              <h2>{activeItem}</h2>
+              <p>This section is not implemented yet.</p>
             </section>
           )}
         </main>
       </div>
     </div>
-  )
+  );
 }
