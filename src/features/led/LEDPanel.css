@@ -1,0 +1,253 @@
+.led-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  color: var(--color-text, #202124);
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius-lg, 1rem);
+}
+.led-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.led-panel__header-status-box {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  width: calc((100% - 60px) / 3);
+}
+.led-panel__header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.led-panel__header p {
+  margin: 0.375rem 0 0;
+  color: var(--color-text-muted, #6b7280);
+  font-size: 0.9rem;
+}
+
+.led-panel__preview {
+  width: calc((100% - 60px) / 3);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.led-panel__preview-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.led-panel__preview-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.led-panel__preview-heading p {
+  margin: 0.375rem 0 0;
+  color: var(--color-text-muted, #9ca3af);
+  font-size: 0.875rem;
+}
+
+.led-panel__preview-status {
+  color: var(--color-text-muted, #9ca3af);
+  font-size: 0.8rem;
+}
+
+.led-panel__preview-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.led-panel__preview-controls .action-button {
+  width: 120px;
+}
+
+.led-panel__preview-led {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--preview-color, #2563eb);
+  opacity: var(--preview-opacity, 0);
+  box-shadow:
+    0 0 5px var(--preview-color, #2563eb),
+    0 0 12px var(--preview-color, #2563eb);
+  transition:
+    background-color 100ms linear,
+    opacity 100ms linear,
+    box-shadow 100ms linear;
+}
+
+.led-panel__preview-led--off {
+  background-color: #374151;
+  border: 1px solid #9ca3af;
+  opacity: 1;
+  box-shadow: none;
+}
+
+.led-panel__preview-led--pulse {
+  animation: led-preview-pulse var(--preview-duration, 500ms) ease-in-out
+    infinite alternate;
+}
+
+@keyframes led-preview-pulse {
+  from {
+    opacity: 0.15;
+    box-shadow: 0 0 2px var(--preview-color);
+  }
+
+  to {
+    opacity: var(--preview-opacity, 0.75);
+    box-shadow:
+      0 0 8px var(--preview-color),
+      0 0 18px var(--preview-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-panel__preview-led {
+    transition: none;
+  }
+
+  .led-panel__preview-led--pulse {
+    animation: none;
+    opacity: var(--preview-opacity, 0);
+  }
+}
+
+.led-panel__status {
+  padding: 0.25rem 0.625rem;
+  border-radius: 10px;
+  color: var(--color-text-muted, #6b7280);
+  background: var(--color-surface-hover, #f3f4f6);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.led-panel__status--on {
+  color: var(--color-success, #15803d);
+  background: var(--color-success-surface, #dcfce7);
+}
+.led-panel__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 30px;
+  max-width: 100%;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+.led-panel__controls > .action-button {
+  align-self: flex-start;
+}
+@media (max-width: 480px) {
+  .led-panel {
+    padding: 1rem;
+  }
+}
+
+.led-panel__effect {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media screen and (min-width: 780px) {
+    width: calc((100% - 60px) / 3);
+  }
+}
+
+.led-panel__effect h3,
+.led-panel__sequence h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.led-panel__sequence-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @media screen and (min-width: 780px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 15px;
+    padding: 15px 0;
+  }
+}
+
+.led-panel__sequence-color {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+
+  width: 7.3rem;
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: 0.75rem;
+  border: 1px solid var(--color-border, #374151);
+  border-radius: var(--radius-md, 0.5rem);
+  background: var(--color-surface, #1f2937);
+
+  @media screen and (min-width: 780px) {
+    width: calc((100% - 60px) / 4);
+  }
+}
+
+/* ColorPicker innerhalb der Karte */
+.led-panel__sequence-color .color-picker {
+  min-width: 0;
+  gap: 0.5rem;
+}
+
+.led-panel__sequence-color .color-picker__label {
+  padding-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.led-panel__sequence-color .color-picker__control {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  height: auto;
+}
+
+.led-panel__sequence-color .color-picker__input {
+  width: 100%;
+  height: 1.5rem;
+  box-sizing: border-box;
+  padding: 0.15rem;
+}
+
+.led-panel__sequence-color .color-picker__value {
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+/* Remove-Button */
+.led-panel__sequence-color .action-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 99;
+  align-items: end;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}

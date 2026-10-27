@@ -1,0 +1,39 @@
+{
+  "id": "led",
+  "title": "LED Control",
+  "description": "Control LED color and brightness",
+  "enabled": true,
+  "controls": [
+    {
+      "id": "power",
+      "type": "switch",
+      "label": "LED Power",
+      "command": "setLED"
+    },
+    {
+      "id": "color",
+      "type": "color-picker",
+      "label": "LED Color",
+      "command": "setLED"
+    },
+    {
+      "id": "brightness",
+      "type": "slider",
+      "label": "Brightness",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "command": "setLED"
+    },
+    {
+      "id": "off",
+      "type": "button",
+      "label": "Turn Off",
+      "command": "setLED",
+      "value": {
+        "isOn": false
+      }
+    }
+  ]
+}

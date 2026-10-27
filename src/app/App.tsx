@@ -3,6 +3,7 @@ import { DEFAULT_APPEARANCE } from "./settings/appearance";
 import type { AppearanceSettings } from "./settings/appearance";
 import { AppLayout } from "../components/layout/AppLayout";
 import { DashboardPage } from "../features/dashboard/DashboardPage";
+import { LEDPanel } from "../features/led/LEDPanel";
 
 function App() {
   const [appearance, setAppearance] = useState<AppearanceSettings>({
@@ -13,6 +14,7 @@ function App() {
     <div data-theme={appearance.theme} data-layout={appearance.layout}>
       <AppLayout appearance={appearance} onAppearanceChange={setAppearance}>
         <DashboardPage />
+        <LEDPanel />
       </AppLayout>
     </div>
   );
